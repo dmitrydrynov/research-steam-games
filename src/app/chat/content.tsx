@@ -119,7 +119,7 @@ export const ChatContent = () => {
                 actions={[
                   <Link
                     key="steam-link"
-                    href={`https://store.steampowered.com/app/${game.id}`}
+                    href={`https://store.steampowered.com/app/${game.referenceId}`}
                     target="_blank"
                   >
                     Go to Steam
@@ -189,12 +189,14 @@ export const ChatContent = () => {
                         <Text strong>Release: </Text>
                         {(game.data as any)?.release_date.date}
                       </Text>
-                      <Text>
-                        <Text strong>Updated: </Text>
-                        {dayjs((game.lastNews as any)[0]?.date * 1000).format(
-                          "D MMM, YYYY"
-                        )}
-                      </Text>
+                      {!!(game.lastNews as any)[0]?.date && (
+                        <Text>
+                          <Text strong>Updated: </Text>
+                          {dayjs((game.lastNews as any)[0]?.date * 1000).format(
+                            "D MMM, YYYY"
+                          )}
+                        </Text>
+                      )}
                     </Space>
                   }
                 />
