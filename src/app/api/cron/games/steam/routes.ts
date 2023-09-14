@@ -3,7 +3,6 @@ import { fetchSteamGames } from "@/services/steam";
 import { Prisma, StoreProvider } from "@prisma/client";
 import dayjs from "dayjs";
 import { NextRequest, NextResponse } from "next/server";
-import { CronJob } from "quirrel/next";
 import { jobQueue } from "../../../queues/job/route";
 import { hasApiAccess } from "@/helpers/access";
 

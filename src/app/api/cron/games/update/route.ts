@@ -1,12 +1,7 @@
 import { hasApiAccess } from "@/helpers/access";
-import { removeTags } from "@/helpers/text";
-import { openAI } from "@/services/openai";
 import { prisma } from "@/services/prisma";
-import { getSteamGameData, getSteamLastNews } from "@/services/steam";
-import { oneLine } from "common-tags";
 import dayjs from "dayjs";
 import { NextResponse, NextRequest } from "next/server";
-import stringifyObject from "stringify-object";
 import { jobQueue } from "../../../queues/job/route";
 import { Prisma } from "@prisma/client";
 
