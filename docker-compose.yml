@@ -1,0 +1,65 @@
+version: "3.6"
+
+services:
+  database:
+    build: ./docker/postgres
+    container_name: research-games_db
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_NAME:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS:-postgres}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - research-games_db-data:/var/lib/postgresql/data
+      - ./docker/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./docker/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init-app.sql
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    networks:
+      - research-games_network
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_NAME:-postgres}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - REDIS_PASSWORD=password12345
+    ports:
+      - '6379:6379'
+    volumes:
+      - research-games_redis-data:/bitnami/redis/data
+    networks:
+      - research-games_network
+
+  quirrel:
+    image: ghcr.io/quirrel-dev/quirrel:main
+    environment:
+      - REDIS_URL=redis://default:password12345@redis
+      - PASSPHRASES=6SDAu0VOaGSCzEAEbZFZgmtrJHnQPqT1
+    ports:
+    - '9181:9181'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+    networks:
+    - research-games_network
+
+networks:
+  research-games_network:
+
+volumes:
+  research-games_db-data:
+  research-games_redis-data:
