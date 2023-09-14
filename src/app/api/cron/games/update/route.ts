@@ -16,6 +16,7 @@ export const POST = async (request: NextRequest) => {
         where: {
           OR: [
             { lastNews: { equals: Prisma.DbNull } },
+            { data: { equals: Prisma.DbNull } },
             {
               updatedAt: {
                 lt: dayjs().subtract(1, "day").startOf("day").toDate(),

@@ -18,6 +18,7 @@
     "jsx": "preserve",
     "incremental": true,
     "rootDir": ".",
+    "baseUrl": "./",
     "plugins": [
       {
         "name": "next"

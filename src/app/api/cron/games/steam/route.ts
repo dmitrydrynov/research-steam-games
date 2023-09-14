@@ -25,7 +25,7 @@ export const POST = async (req: NextRequest) => {
     );
 
     const steamGames = await fetchSteamGames({
-      count: count || 25000,
+      count: count || 1000,
       lastGameId: lastGameId || lastSteamGame?.referenceId,
     });
 
@@ -119,7 +119,7 @@ export const GET = async (req: NextRequest) => {
     );
 
     const steamGames = await fetchSteamGames({
-      count: 25000,
+      count: 1000,
       lastGameId: lastSteamGame?.referenceId,
     });
 
