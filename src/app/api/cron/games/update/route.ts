@@ -5,7 +5,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { jobQueue } from "../../../queues/job/route";
 import { Prisma } from "@prisma/client";
 
-export async function POST(request: NextRequest) {
+export const POST = async (request: NextRequest) => {
   try {
     if (!hasApiAccess(request)) throw new Error("Forbidden Access");
 
@@ -123,9 +123,9 @@ export async function POST(request: NextRequest) {
       statusText: "Forbidden Access",
     });
   }
-}
+};
 
-export async function GET(request: NextRequest) {
+export const GET = async (request: NextRequest) => {
   try {
     // if (!hasApiAccess(request)) throw new Error("Forbidden Access");
 
@@ -173,4 +173,4 @@ export async function GET(request: NextRequest) {
       statusText: "Forbidden Access",
     });
   }
-}
+};

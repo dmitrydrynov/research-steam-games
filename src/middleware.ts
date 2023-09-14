@@ -1,5 +1,4 @@
 import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
 
 // middleware is applied to all routes, use conditionals to select
 

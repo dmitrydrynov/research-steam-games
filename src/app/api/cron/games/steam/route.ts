@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { jobQueue } from "../../../queues/job/route";
 import { hasApiAccess } from "@/helpers/access";
 
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
   try {
     if (!hasApiAccess(req)) throw new Error("Forbidden Access");
 
@@ -100,9 +100,9 @@ export async function POST(req: NextRequest) {
       statusText: "Forbidden Access",
     });
   }
-}
+};
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
   try {
     // if (!hasApiAccess(req)) throw new Error("Forbidden Access");
 
@@ -178,4 +178,4 @@ export async function GET(req: NextRequest) {
       statusText: "Forbidden Access",
     });
   }
-}
+};
