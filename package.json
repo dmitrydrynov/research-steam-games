@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build && quirrel ci",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} -r tsconfig-paths/register prisma/seed.ts"
