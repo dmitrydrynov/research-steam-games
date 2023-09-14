@@ -129,3 +129,53 @@ export async function POST(request: NextRequest) {
     });
   }
 }
+
+export async function GET(request: NextRequest) {
+  try {
+    if (!hasApiAccess(request)) throw new Error("Forbidden Access");
+
+    const games = await prisma.game.findMany({
+      where: {
+        OR: [
+          { lastNews: { equals: Prisma.DbNull } },
+          {
+            updatedAt: {
+              lt: dayjs().subtract(1, "day").startOf("day").toDate(),
+            },
+          },
+        ],
+      },
+      take: 1000,
+    });
+
+    let gameId = games?.map((g) => g.id);
+
+    if (!gameId) throw Error("No gameId");
+
+    gameId = Array.isArray(gameId) ? gameId : [gameId];
+
+    jobQueue.enqueueMany(
+      gameId.map((id) => ({
+        payload: {
+          name: "createEmbedding",
+          data: { gameId: id },
+        },
+        options: {
+          id,
+          delay: 300,
+          // retry: ["7sec", "5min", "1h"],
+          exclusive: true,
+        },
+      }))
+    );
+
+    return NextResponse.json({ updated: gameId });
+  } catch (e) {
+    console.error(e);
+
+    return new NextResponse(null, {
+      status: 403,
+      statusText: "Forbidden Access",
+    });
+  }
+}
