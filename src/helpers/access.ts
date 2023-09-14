@@ -2,9 +2,8 @@ import { NextRequest } from "next/server";
 import { SHA256 as sha256 } from "crypto-js";
 
 export const hasApiAccess = (req: NextRequest) => {
-  const accessToken = Buffer.from(process.env.SECRET_KEY as string).toString(
-    "base64"
-  );
+  const accessToken = process.env.CRON_SECRET as string;
+  // Buffer.from(process.env.CRON_SECRET as string).toString("base64");
 
   return (
     req.headers.has("authorization") &&
