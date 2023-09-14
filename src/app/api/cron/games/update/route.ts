@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
             },
           ],
         },
-        take: 100,
+        take: 1000,
       });
 
       gameId = games?.map((g) => g.id);
