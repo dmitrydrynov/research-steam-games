@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    if (!hasApiAccess(request)) throw new Error("Forbidden Access");
+    // if (!hasApiAccess(request)) throw new Error("Forbidden Access");
 
     const games = await prisma.game.findMany({
       where: {

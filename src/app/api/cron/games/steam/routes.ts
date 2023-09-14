@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    if (!hasApiAccess(req)) throw new Error("Forbidden Access");
+    // if (!hasApiAccess(req)) throw new Error("Forbidden Access");
 
     console.log("[games:fetch]", dayjs().format("DD/MM/YYYY"));
 
