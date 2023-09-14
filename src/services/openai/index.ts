@@ -105,7 +105,7 @@ class OpenAI {
 					`,
         },
       ],
-      temperature: 0.25,
+      temperature: 0.15,
     });
 
     const {

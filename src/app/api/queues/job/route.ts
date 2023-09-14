@@ -36,6 +36,17 @@ export const jobQueue = Queue(
         const gameData = data[game.referenceId].data;
 
         if (gameData) {
+          const {
+            header_image,
+            capsule_image,
+            capsule_imagev5,
+            screenshots,
+            movies,
+            background,
+            background_raw,
+            ...paramsForEmbedding
+          } = gameData;
+
           const releaseDate = !gameData.release_date.coming_soon
             ? dayjs(gameData.release_date.date)
             : undefined;
@@ -46,7 +57,7 @@ export const jobQueue = Queue(
           const gameDataText = oneLine(
             removeTags(
               stringifyObject(
-                { ...gameData, lastNews },
+                { ...paramsForEmbedding, lastNews },
                 {
                   indent: " ",
                   singleQuotes: false,
