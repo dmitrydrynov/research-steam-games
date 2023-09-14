@@ -30,6 +30,7 @@
     }
   },
   "include": [
+    "prisma/**/*.ts",
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
