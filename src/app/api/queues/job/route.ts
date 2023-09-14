@@ -1,5 +1,4 @@
 import { removeTags } from "@/helpers/text";
-import logger from "@/lib/logger";
 import { openAI } from "@/services/openai";
 import { prisma } from "@/services/prisma";
 import { getSteamGameData, getSteamLastNews } from "@/services/steam";
@@ -7,18 +6,6 @@ import { oneLine } from "common-tags";
 import dayjs from "dayjs";
 import { Queue } from "quirrel/next-app";
 import stringifyObject from "stringify-object";
-
-// const jsonToContent = (json: Record<string, any>) => {
-//   const properties = Object.keys(json);
-//   let text = "";
-
-//   for (const prop in properties) {
-//     const value = json[prop]
-//     text += `${prop}: ${value}\n`;
-//   }
-
-//   return text;
-// };
 
 export const jobQueue = Queue(
   "api/queues/job",
@@ -105,7 +92,6 @@ export const jobQueue = Queue(
         }
       }
     } catch (error) {
-      logger.error(error);
       throw error;
     }
   },
