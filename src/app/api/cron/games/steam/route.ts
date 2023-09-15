@@ -67,10 +67,10 @@ export const POST = async (req: NextRequest) => {
       ]);
 
       if (!skipEmbedding) {
-        jobQueue.enqueueMany(
+        await jobQueue.enqueueMany(
           games.map((game) => ({
             payload: {
-              name: "createEmbedding",
+              name: "updateGames",
               data: { gameId: game.id, skipEmbedding },
             },
             options: {
@@ -119,7 +119,7 @@ export const GET = async (req: NextRequest) => {
     );
 
     const steamGames = await fetchSteamGames({
-      count: 1000,
+      count: 100,
       lastGameId: lastSteamGame?.referenceId,
     });
 
@@ -147,10 +147,10 @@ export const GET = async (req: NextRequest) => {
           .map((item) => prisma.game.create({ data: item })),
       ]);
 
-      jobQueue.enqueueMany(
+      await jobQueue.enqueueMany(
         games.map((game) => ({
           payload: {
-            name: "createEmbedding",
+            name: "updateGames",
             data: { gameId: game.id },
           },
           options: {

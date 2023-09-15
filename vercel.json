@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/games/steam",
-      "schedule": "0,30 * * * *"
+      "schedule": "*/10 * * * *"
     }
   ]
 }

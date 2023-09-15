@@ -24,7 +24,7 @@ export const POST = async (request: NextRequest) => {
             },
           ],
         },
-        take: 1000,
+        take: 100,
       });
 
       gameId = games?.map((g) => g.id);
@@ -34,10 +34,10 @@ export const POST = async (request: NextRequest) => {
 
     gameId = Array.isArray(gameId) ? gameId : [gameId];
 
-    jobQueue.enqueueMany(
+    await jobQueue.enqueueMany(
       gameId.map((id) => ({
         payload: {
-          name: "createEmbedding",
+          name: "updateGames",
           data: { gameId: id },
         },
         options: {
@@ -141,7 +141,7 @@ export const GET = async (request: NextRequest) => {
           },
         ],
       },
-      take: 1000,
+      take: 100,
     });
 
     let gameId = games?.map((g) => g.id);
@@ -150,10 +150,10 @@ export const GET = async (request: NextRequest) => {
 
     gameId = Array.isArray(gameId) ? gameId : [gameId];
 
-    jobQueue.enqueueMany(
+    await jobQueue.enqueueMany(
       gameId.map((id) => ({
         payload: {
-          name: "createEmbedding",
+          name: "updateGames",
           data: { gameId: id },
         },
         options: {

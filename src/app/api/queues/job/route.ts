@@ -9,9 +9,9 @@ import stringifyObject from "stringify-object";
 
 export const jobQueue = Queue(
   "api/queues/job",
-  async (job: { name: "createEmbedding"; data: Record<string, any> }) => {
+  async (job: { name: "updateGames"; data: Record<string, any> }) => {
     try {
-      if (job.name == "createEmbedding") {
+      if (job.name == "updateGames") {
         const { gameId, skipEmbedding } = job.data;
 
         const game = await prisma.game.findFirst({ where: { id: gameId } });
