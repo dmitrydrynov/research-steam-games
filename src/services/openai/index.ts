@@ -21,7 +21,12 @@ class OpenAI {
 
   async generateEmbedding(document: string) {
     try {
-      const preparedСontent = document.replace(/\n/g, " ");
+      const tokenizer = new GPT4Tokenizer({ type: "gpt4" });
+      let preparedСontent = document.replace(/\n/g, " ");
+      const estimatedTokenCount = tokenizer.estimateTokenCount(preparedСontent);
+
+      preparedСontent =
+        estimatedTokenCount > 8191 ? preparedСontent.slice(0, 8191) : preparedСontent;
 
       const moderation = await this.moderationInput(preparedСontent);
       if (moderation) throw Error("There are flagged content");
