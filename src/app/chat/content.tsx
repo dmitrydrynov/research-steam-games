@@ -90,7 +90,7 @@ export const ChatContent = () => {
       </Button>
       {!!data?.data.data.answer && (
         <Alert
-          message="Answer"
+          message="Recommendations"
           description={
             <ReactMarkdown linkTarget="_blank">
               {data.data.data.answer}

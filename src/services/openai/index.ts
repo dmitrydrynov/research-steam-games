@@ -26,7 +26,9 @@ class OpenAI {
       const estimatedTokenCount = tokenizer.estimateTokenCount(preparedСontent);
 
       preparedСontent =
-        estimatedTokenCount > 8191 ? preparedСontent.slice(0, 8191) : preparedСontent;
+        estimatedTokenCount > 8191
+          ? preparedСontent.slice(0, 8191)
+          : preparedСontent;
 
       const moderation = await this.moderationInput(preparedСontent);
       if (moderation) throw Error("There are flagged content");
@@ -98,8 +100,9 @@ class OpenAI {
       model: "gpt-3.5-turbo-16k",
       messages: [
         {
-          role: "assistant",
-          content: "You find similar games in the text with triple quotes",
+          role: "system",
+          content:
+            "You are a guru in game development industry. Tell us about the games described: what players like about them and what they don’t like or are missing",
         },
         {
           role: "user",
@@ -110,7 +113,7 @@ class OpenAI {
 					`,
         },
       ],
-      temperature: 0.15,
+      temperature: 0.35,
     });
 
     const {
