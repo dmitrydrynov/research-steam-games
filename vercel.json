@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/games/steam",
       "schedule": "*/10 * * * *"
+    },
+    {
+      "path": "/api/cron/games/update",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

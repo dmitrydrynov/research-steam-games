@@ -98,10 +98,10 @@ export const jobQueue = Queue(
   {
     logger: {
       receivedJob(route, data) {
-        console.log("[receivedJob]", route);
+        console.log("[quirrel:receivedJob]", route);
       },
       processingError: (r, d, error) => {
-        console.error("[processingError]", error);
+        console.error("[quirrel:processingError]", error);
       },
     },
   }
